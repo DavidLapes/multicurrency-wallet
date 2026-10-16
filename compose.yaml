@@ -1,0 +1,6 @@
+services:
+  wallet:
+    build: .
+    image: multicurrency-wallet
+    ports:
+      - "8080:8080"

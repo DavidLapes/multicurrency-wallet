@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: multicurrency-wallet
+  http:
+    client:
+      connect-timeout: 3s
+      read-timeout: 5s
+  jackson:
+    generator:
+      write-bigdecimal-as-plain: true
+
+cnb:
+  base-url: https://api.cnb.cz
+
+exchange-rates:
+  # CNB publishes a new fixing on weekdays at 14:30 Prague time
+  time-zone: Europe/Prague
+  publication-time: "14:30"
+  retry-interval: 10m
+  refresh:
+    on-startup: true
+    cron: "0 0 15 * * MON-FRI"   # sec min hour day month weekday, in time-zone above
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  default-produces-media-type: application/json
+  swagger-ui:
+    use-root-path: true          # http://localhost:8080/
+    try-it-out-enabled: true
+    operations-sorter: alpha
+    tags-sorter: alpha
+    display-request-duration: true
